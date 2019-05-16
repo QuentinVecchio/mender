@@ -17,7 +17,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 type DeploymentHook struct {
@@ -35,9 +35,6 @@ func (f *DeploymentJSONFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 	data := make(logrus.Fields, 3)
 
 	timestampFormat := f.TimestampFormat
-	if timestampFormat == "" {
-		timestampFormat = logrus.DefaultTimestampFormat
-	}
 
 	data["timestamp"] = entry.Time.Format(timestampFormat)
 	data["message"] = entry.Message
