@@ -21,7 +21,8 @@ import (
 	"io"
 	"path/filepath"
 
-	"github.com/mendersoftware/mender-artifact/artifact"
+	"../../mender-artifact/artifact"
+	// "github.com/mendersoftware/mender-artifact/artifact"
 	"github.com/pkg/errors"
 )
 
@@ -41,7 +42,7 @@ type Rootfs struct {
 
 func NewRootfsV1(updFile string) *Rootfs {
 	uf := &DataFile{
-		Name:       updFile,
+		Name: updFile,
 	}
 	return &Rootfs{
 		update:  uf,
@@ -51,7 +52,7 @@ func NewRootfsV1(updFile string) *Rootfs {
 
 func NewRootfsV2(updFile string) *Rootfs {
 	uf := &DataFile{
-		Name:       updFile,
+		Name: updFile,
 	}
 	return &Rootfs{
 		update:  uf,
@@ -306,8 +307,10 @@ func (rfs *Rootfs) ComposeHeader(args *ComposeHeaderArgs) error {
 			dir:        path,
 			typeinfov3: args.TypeInfoV3,
 		}); err != nil {
-			return errors.Wrap(err, "ComposeHeader: ")
+			return errors.Wrap(err, "ComposeHeader")
 		}
+	default:
+		return fmt.Errorf("ComposeHeader: rootfs-version %d not supported", rfs.version)
 
 	}
 

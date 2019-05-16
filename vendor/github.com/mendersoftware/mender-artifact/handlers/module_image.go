@@ -20,7 +20,8 @@ import (
 	"io"
 	"path/filepath"
 
-	"github.com/mendersoftware/mender-artifact/artifact"
+	"../../mender-artifact/artifact"	
+	//"github.com/mendersoftware/mender-artifact/artifact"
 	"github.com/pkg/errors"
 )
 
@@ -227,11 +228,16 @@ func jsonDeepCopy(src interface{}) (interface{}, error) {
 	case []interface{}:
 		dst := make([]interface{}, 0, len(item))
 		for n := range item {
-			switch item[n].(type) {
-			case map[string]interface{}, []interface{}:
-				return nil, errors.New("List cannot contain JSON object or list")
+			obj, err := jsonDeepCopy(item[n])
+			if err != nil {
+				return nil, errors.Wrap(err, "ok")
 			}
-			dst = append(dst, item[n])
+			dst = append(dst, obj)
+			// switch item[n].(type) {
+			// case map[string]interface{}, []interface{}:
+			// 	return nil, errors.New("List cannot contain JSON object or list")
+			// }
+			// dst = append(dst, item[n])
 		}
 		return dst, nil
 	default:

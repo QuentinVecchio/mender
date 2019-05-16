@@ -23,8 +23,10 @@ import (
 	"path/filepath"
 	"regexp"
 
-	"github.com/mendersoftware/mender-artifact/artifact"
-	"github.com/mendersoftware/mender-artifact/handlers"
+	"../../mender-artifact/artifact"
+	"../../mender-artifact/handlers"
+	// "github.com/mendersoftware/mender-artifact/artifact"
+	// "github.com/mendersoftware/mender-artifact/handlers"
 	"github.com/pkg/errors"
 )
 

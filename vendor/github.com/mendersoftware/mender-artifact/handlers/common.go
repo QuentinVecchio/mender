@@ -23,7 +23,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/mendersoftware/mender-artifact/artifact"
+	"../../mender-artifact/artifact"	
+	//"github.com/mendersoftware/mender-artifact/artifact"
 	"github.com/pkg/errors"
 )
 
@@ -184,6 +185,9 @@ func match(pattern, name string) bool {
 }
 
 func writeFiles(tw *tar.Writer, updFiles []string, dir string) error {
+	if tw == nil {
+		return errors.New("writer: tar-writer is nil")
+	}
 	files := new(artifact.Files)
 	for _, u := range updFiles {
 		files.FileList = append(files.FileList, u)
